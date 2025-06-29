@@ -4,16 +4,23 @@ This project uses randomforest ml model to detect various attacks including DOS,
 # SET_UP of projecct
 
  1 Use a virtual desktop (system 1, windows. preferred for optimal performance use--> vmware workstatio)
+ 
  2 Set up virtual windows machine using vmware set network connectionn to bridge with host system so, to secure and use ip for attack
+ 
  3 Set up another virtual machine (system 2, Kali linux to simulate attacks)
+ 
  4 Use both VM's in same host make an organized side by side window system-1, system-2
+ 
  5 Ping your virtual windows (system-1) using kali linux(system-2). use command "sudo ping your_windows_ip" (note: disable firewall in windows vm to proceed further. so,use virtual machine)
+ 
  6 After ping sucessfully established procceed further by using various attacks on kali liux using target ip (system-1)
+ 
  7 This is just simulation so use Virtal machine, now you can use IDS project on Windows(system-1), to detect attacks (note: only detects.-> does not prevent or take any action)
 
 # USING PROJECT IN WINDOWS
 
  STEP 1--> Use NSS-KDD.csv data set from kaggle use link: https://www.kaggle.com/datasets/hassan06/nslkdd or use data set NSS-KDD.csv from repository.
+ 
  STEP 2--> Train and test dataset using RandomForest.py which also creates random_forest_model.pkl which is a trained model redy to use for prediction. (which will use further for detection.)
 
 --># (DONONT MISS IMP)before next step start attack with kali liux(System-2) on Windows (system-1, which runs project) which will create abnormal packets then immediatly run next step
