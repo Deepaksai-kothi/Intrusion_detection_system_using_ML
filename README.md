@@ -1,45 +1,54 @@
-# Intrusion_detection_system_using_ML
-This project employs a Random Forest model on the NSL-KDD dataset to improve intrusion detection
-accuracy, categorizing network traffic as normal or malicious. It features live packet capture and real-time
-predictions through a Flask web application, showcasing the adaptability of machine learning in
-cybersecurity, It also involves virtualization
+# Intrusion Detection System Using Machine Learning
 
-This project uses randomforest ML model to detect various attacks including DOS, PROBE etc. It uses various python modules like pyshark to capture packets and reflects detected attacks onto frontend Flask Web application
+This project uses a Random Forest model trained on the NSL-KDD dataset to improve intrusion detection accuracy by categorizing network traffic as either normal or malicious. It features live packet capture and real-time predictions through a Flask web application, demonstrating the adaptability of machine learning in cybersecurity. It also includes virtualization for safe attack simulation.
 
-# SET_UP of projecct
+The system uses a Random Forest ML model to detect various types of attacks, including DoS, Probe, etc. It employs several Python modules like PyShark to capture packets and reflects the detected attacks on the frontend via a Flask web application.
 
- 1. Use a virtual desktop (system 1, windows. For optimal performance use--> vmware workstatio).
- 
- 2. Set up virtual windows machine using vmware set network connectionn to bridge with host system, to secure and use ip for attack.
- 
- 3. Set up another virtual machine (system 2, Kali linux to simulate attacks).
- 
- 4. Use both VM's in same host make an organized side by side window system-1, system-2.
- 
- 5. Ping your virtual windows (system-1) using kali linux(system-2). use command "sudo ping your_windows_ip" (note: disable firewall in windows vm to proceed further. so,use virtual machine).
- 
- 6. After ping sucessfully established procceed further by using various attacks on kali liux using target ip (system-1).
- 
- 7. This is just simulation so use Virtal machine, now you can use IDS project on Windows(system-1), to detect attacks (note: only detects.-> does not prevent or take any action).
+## Project Setup
 
-# USING PROJECT IN WINDOWS
+1. Use a virtual desktop (System 1 - Windows). For optimal performance, use VMware Workstation.
+2. Set up a virtual Windows machine using VMware. Set the network connection to *bridged* mode with the host system to secure and use the IP for attack simulation.
+3. Set up another virtual machine (System 2 - Kali Linux) to simulate attacks.
+4. Arrange both VMs side by side on the same host for convenience.
+5. Ping your virtual Windows machine (System 1) from Kali Linux (System 2) using the command:
+   ```bash
+   sudo ping <your_windows_ip>
+   ```
+   > **Note**: Disable the firewall in the Windows VM to allow the ping to succeed.
+6. After the ping is successfully established, proceed to launch various attacks from Kali Linux (System 2) using the Windows IP as the target.
+7. This is only a simulation, so ensure you're using virtual machines. The IDS project running on Windows (System 1) will detect the attacks.
+   > **Note**: The system only detects attacks; it does not prevent or respond to them.
 
- STEP 1.--> Use NSS-KDD.csv data set from kaggle use link: https://www.kaggle.com/datasets/hassan06/nslkdd or use data set NSS-KDD.csv from repository.
- 
- STEP 2.--> Train and test dataset using RandomForest.py which also creates random_forest_model.pkl which is a trained model redy to use for prediction. (which will use further for detection).
+## Using the Project on Windows
 
---># (DONONT MISS IMP)before next step start attack with kali liux(System-2) on Windows (system-1, which runs project) which will create abnormal packets then immediatly run next step.
+### Step 1
+Use the NSL-KDD.csv dataset from Kaggle via the link:  
+https://www.kaggle.com/datasets/hassan06/nslkdd  
+Alternatively, use the `NSL-KDD.csv` file from this repository.
 
- STEP 3.--> Next run featurs.py this creates a network_features.csv file which contais required features for detecting,
-           and this is main step as it actually captures live packets using pyshark module in python(Note: make chages in features.py at 
-          # Live capture from network interface (Update if needed according to your interface)
-            cap = pyshark.LiveCapture(interface="Ethernet0").
+### Step 2
+Train and test the dataset using `RandomForest.py`, which generates `random_forest_model.pkl` — a trained model ready for prediction.
 
- STEP 4.--> alternately you can also use pcap.py to get features from pcap file which is file generated when downloaded from live capture of packets in wireshark.
+> **Important**: Before proceeding to the next step, start an attack using Kali Linux (System 2) on Windows (System 1). This will generate abnormal packets. Immediately after, proceed to Step 3.
 
- STEP 5.--> run project_server.py(main) which creates local server for web page, open web page uploade the csv file i.e which we get from STEP 3 or STEP 4 
-           the front end shows the attacks that came from kali liux and it detects accurately.
+### Step 3
+Run `features.py`. This creates `network_features.csv`, which contains the required features for detection.  
+This step captures live packets using the PyShark module in Python.
 
-# you can customize web page and  background  @templates and @static. 
-//crucial Homepage.html has functionalities customize without breaking//.
+> **Note**: Update the network interface in `features.py` as needed:
+```python
+cap = pyshark.LiveCapture(interface="Ethernet0")
+```
 
+### Step 4
+Alternatively, you can run `pcap.py` to extract features from a PCAP file. This file can be generated from Wireshark's live packet capture.
+
+### Step 5
+Run `project_server.py` (main script) to start the local server for the web application.  
+Open the webpage and upload the CSV file generated in **Step 3** or **Step 4**.  
+The frontend will display the attacks detected from Kali Linux, and the model will identify them accurately.
+
+## Customizing the Web Page
+
+You can customize the web page and its background via the `templates/` and `static/` directories.  
+> `Homepage.html` is crucial for functionality — make changes carefully to avoid breaking it.
