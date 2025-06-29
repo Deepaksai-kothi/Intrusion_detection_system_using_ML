@@ -1,5 +1,10 @@
 # Intrusion_detection_system_using_ML
-This project uses randomforest ml model to detect various attacks including DOS, PROBE etc. It uses various python modules like pyshark to capture packets and reflects detected attacks onto frontend
+This project employs a Random Forest model on the NSL-KDD dataset to improve intrusion detection
+accuracy, categorizing network traffic as normal or malicious. It features live packet capture and real-time
+predictions through a Flask web application, showcasing the adaptability of machine learning in
+cybersecurity, It also involves virtualization
+
+This project uses randomforest ML model to detect various attacks including DOS, PROBE etc. It uses various python modules like pyshark to capture packets and reflects detected attacks onto frontend Flask Web application
 
 # SET_UP of projecct
 
