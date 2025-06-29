@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intrusion Detection System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background: linear-gradient(to right, #f8f9fa, #e0f7fa);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    
+        .hidden {
+            display: none;
+        }
+    
+        .navbar {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    
+        .jumbotron {
+            border-radius: 16px;
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+        }
+    
+        .image-placeholder {
+            background: #e9ecef;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+    
+        .image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    
+        .card {
+            border-radius: 16px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+    
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+    
+        .form-control {
+            border-radius: 10px;
+        }
+    
+        .btn {
+            border-radius: 8px;
+            font-weight: 600;
+        }
+    
+        #predictionResult {
+            font-size: 1.25rem;
+        }
+    
+        ul.list-group li {
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 6px;
+        }
+    </style>    
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-shield-alt"></i> Intrusion Detection System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showSection('info')">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showSection('manual-entry')">Custom Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showSection('file-upload')">Upload File</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Information Section -->
+    <div class="container mt-4" id="info">
+        <div class="jumbotron bg-light p-5 shadow-lg">
+            <h1 class="display-5"><i class="fas fa-info-circle"></i> What is an Intrusion Detection System?</h1>
+            <p class="lead">An Intrusion Detection System (IDS) is a security mechanism designed to detect unauthorized access, cyber threats, and malicious activities in networks and computer systems.</p>
+            <hr class="my-4">
+            <p>Our AI-powered IDS allows users to manually enter network parameters or upload CSV files to analyze large-scale network data.</p>
+            
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="image-placeholder"><img src="/static/ids.jpeg"></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="image-placeholder"><img src="/static/intrusion-detection-system.webp"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Features Section -->
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-eye"></i> Real-Time Monitoring</h5>
+                        <p class="card-text">Detect suspicious activities as they occur and prevent unauthorized access.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-chart-line"></i> AI-Powered Analysis</h5>
+                        <p class="card-text">Leverage machine learning to predict and classify intrusions accurately.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-file-upload"></i> Bulk File Processing</h5>
+                        <p class="card-text">Upload CSV files for large-scale intrusion analysis within seconds.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manual Entry Section -->
+    <div class="container mt-4 hidden" id="manual-entry">
+        <div class="card shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-keyboard"></i> Custom Data Entry</h5>
+                <p class="card-text">Enter network parameters manually to check for potential intrusions.</p>
+                <form id="manualForm">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="logged_in" placeholder="Enter value for logged_in" required>
+                        <input type="text" class="form-control mt-2" name="root_shell" placeholder="Enter value for root_shell" required>
+                        <input type="text" class="form-control mt-2" name="su_attempted" placeholder="Enter value for su_attempted" required>
+                        <input type="text" class="form-control mt-2" name="outcome" placeholder="Enter value for outcome" required>
+                        <input type="text" class="form-control mt-2" name="duration" placeholder="Enter value for duration" required>
+                        <input type="text" class="form-control mt-2" name="src_bytes" placeholder="Enter value for src_bytes" required>
+                        <input type="text" class="form-control mt-2" name="dst_bytes" placeholder="Enter value for dst_bytes" required>
+                        <input type="text" class="form-control mt-2" name="hot" placeholder="Enter value for hot" required>
+                        <input type="text" class="form-control mt-2" name="num_failed_logins" placeholder="Enter value for num_failed_logins" required>
+                        <input type="text" class="form-control mt-2" name="num_comprised" placeholder="Enter value for num_comprised" required>
+                        <input type="text" class="form-control mt-2" name="num_file_creations" placeholder="Enter value for num_file_creations" required>
+                        <input type="text" class="form-control mt-2" name="num_shells" placeholder="Enter value for num_shells" required>
+                        <input type="text" class="form-control mt-2" name="num_access_files" placeholder="Enter value for num_access_files" required>
+                        <input type="text" class="form-control mt-2" name="count" placeholder="Enter value for count" required>
+                        <input type="text" class="form-control mt-2" name="srv_count" placeholder="Enter value for srv_count" required>
+                        <input type="text" class="form-control mt-2" name="serror_rate" placeholder="Enter value for serror_rate" required>
+                        <input type="text" class="form-control mt-2" name="srv_serror_rate" placeholder="Enter value for srv_serror_rate" required>
+                    
+                        <input type="text" class="form-control mt-2" name="rerror_rate" placeholder="Enter value for rerror_rate" required>
+                        <input type="text" class="form-control mt-2" name="srv_rerror_rate" placeholder="Enter value for srv_rerror_rate" required>
+                        <input type="text" class="form-control mt-2" name="dst_host_count" placeholder="Enter value for dst_host_count" required>
+                        <input type="text" class="form-control mt-2" name="dst_host_srv_count" placeholder="Enter value for dst_host_srv_count" required>
+                        <input type="text" class="form-control mt-2" name="dst_host_same_srv_rate" placeholder="Enter value for dst_host_same_srv_rate" required>
+                        <input type="text" class="form-control mt-2" name="dst_host_diff_srv_rate" placeholder="Enter value for dst_host_diff_srv_rate" required>
+                        <input type="text" class="form-control mt-2" name="dst_host_serror_rate" placeholder="Enter value for dst_host_serror_rate" required>
+                        <input type="text" class="form-control mt-2" name="dst_host_srv_serror_rate" placeholder="Enter value for dst_host_srv_serror_rate" required>
+                        <input type="text" class="form-control mt-2" name="level" placeholder="Enter value for level" required>
+                        
+            
+    
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Predict</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Upload -->
+    <div class="container mt-4 hidden" id="file-upload">
+        <div class="card shadow-lg">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-upload"></i> Upload CSV File</h5>
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <input type="file" class="form-control" name="file" required>
+                    <button type="submit" class="btn btn-success w-100 mt-2">Upload & Predict</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Prediction Result -->
+    <div class="modal fade" id="resultModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Prediction Result</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div id="predictionResult"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script>
+        function showSection(sectionId) {
+            document.getElementById('info').classList.add('hidden');
+            document.getElementById('manual-entry').classList.add('hidden');
+            document.getElementById('file-upload').classList.add('hidden');
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+
+        document.getElementById('manualForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let formData = new FormData(this);
+            fetch('/predict', {
+                method: 'POST',
+                body: new URLSearchParams(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('predictionResult').innerHTML = `<strong>Prediction:</strong> ${data.prediction || 'Error'}`;
+                new bootstrap.Modal(document.getElementById('resultModal')).show();
+            });
+        });
+
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let formData = new FormData(this);
+            fetch('/predict-file', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+.then(data => {
+    const modalBody = document.getElementById('predictionResult');
+    if (data.predictions) {
+        modalBody.innerHTML = '<strong>Predictions:</strong><ul class="list-group mt-2">' +
+            data.predictions.map(pred => `<li class="list-group-item">${pred}</li>`).join('') +
+            '</ul>';
+    } else if (data.error) {
+        modalBody.innerHTML = `<strong>Error:</strong> ${data.error}`;
+    } else {
+        modalBody.innerHTML = '<strong>Error:</strong> Something went wrong.';
+    }
+    new bootstrap.Modal(document.getElementById('resultModal')).show();
+}); 
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
